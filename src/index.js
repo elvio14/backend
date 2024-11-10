@@ -181,6 +181,16 @@ app.post("/patient/:id/add-Meal", async (req, res) => {
   }
 });
 
+app.get("/patient/:id/add-Meal", async (req, res) => {
+  try {
+    const patient = await Patient.findById(req.params.id);
+    if (!patient) return res.status(404).json({ message: "Patient not found" });
+    res.json(patient);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.listen(3000, () => {
   console.log("port connected !");
 });
