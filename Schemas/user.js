@@ -6,7 +6,7 @@ const NutritionistSchema = new mongoose.Schema({
   Password: { type: String, required: true },
   Patients: [PatientSchema],
 });
-
+    
 const PatientSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   Email: { type: String, required: true, unique: true },
