@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import { Patient, Nutritionist } from "../models.js";
+import { Patient, Nutritionist, Meal } from "../models.js";
 import mongoose from "mongoose";
 import cors from "cors";
 dotenv.config();
@@ -162,6 +162,20 @@ app.post("/nutritionist/:id/add-patient", async (req, res) => {
     await nutritionist.save();
 
     res.json({ message: "Patient added to nutritionist's list", patient });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.post("/patient/:id/add-Meal", async (req, res) => {
+  try {
+    const patient = await Patient.findById(req.params.id);
+    if (!patient) return res.status(404).json({ message: "Patient not found" });
+    const meal = new Meal(req.body);
+    await meal.save();
+    patient.Log.Meals.push(req.body);
+    await patient.save();
+    res.json({ message: "Meal added to the Patient's log", meal });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
