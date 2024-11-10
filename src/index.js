@@ -3,8 +3,8 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const templatePath = path.join(__dirname, "../templates");
-
-require('dotenv').config();
+// Sam was here
+require("dotenv").config();
 
 const PORT = process.env.PORT;
 
@@ -93,7 +93,6 @@ app.get("/provider/dashboard", (req, res) => {
 app.listen(PORT, () => {
   console.log("port connected !");
 });
-
 
 const loginSchema = new mongoose.Schema({
   name: {
