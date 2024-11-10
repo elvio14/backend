@@ -1,9 +1,19 @@
 import express from "express";
-import dotenv from "dotenv";
 import { Patient, Nutritionist, Meal } from "../models.js";
 import mongoose from "mongoose";
+import fs from "fs";
 import cors from "cors";
+import dotenv from "dotenv";
+const PORT = process.env.PORT;
 dotenv.config();
+
+const config = JSON.parse(
+  fs.readFileSync("./compass-connections.json", "utf-8")
+);
+
+// Extract the connection string
+const connectionString =
+  config.connections[0].connectionOptions.connectionString;
 
 const app = express();
 
@@ -16,7 +26,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 mongoose
-  .connect("mongodb+srv://Yash:abcd@cluster0.mqmqb.mongodb.net/")
+  .connect(connectionString)
   .then(() => {
     console.log("mongo connected !");
   })
@@ -191,7 +201,7 @@ app.get("/patient/:id/add-Meal", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("port connected !");
 });
 
