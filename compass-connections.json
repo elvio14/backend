@@ -17,7 +17,7 @@
       },
       "savedConnectionType": "recent",
       "connectionOptions": {
-        "connectionString": "mongodb+srv://Yash:abcd@cluster0.mqmqb.mongodb.net/",
+        "connectionString": "mongodb+srv://Yash:Yash@cluster0.mqmqb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
         "oidc": {
           "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
         }
