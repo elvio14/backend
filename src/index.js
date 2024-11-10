@@ -1,96 +1,173 @@
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
+import { Patient, Nutritionist } from "../models.js";
+import mongoose from "mongoose";
+import cors from "cors";
+dotenv.config();
+
 const app = express();
-const path = require("path");
-const hbs = require("hbs");
-const templatePath = path.join(__dirname, "../templates");
-// Sam was here2 again
-require("dotenv").config();
 
-const PORT = process.env.PORT;
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
-const mongoose = require("mongoose");
+app.use(cors(corsOptions));
+
 mongoose
   .connect("mongodb+srv://Yash:abcd@cluster0.mqmqb.mongodb.net/")
   .then(() => {
     console.log("mongo connected !");
   })
   .catch(() => {
-    console.log("failed to connect !");
+    console.log("failed to connect to mongo !");
   });
 
 app.use(express.json());
-app.set("view engine", "hbs");
-app.set("views", templatePath);
 app.use(express.urlencoded({ extended: false }));
 
+// home page
 app.get("/", (req, res) => {
   res.render("Start");
 });
 
-app.get("/patient", (req, res) => {
-  res.render("login");
-});
-app.post("/patient/", async (req, res) => {
-  const data = {
-    name: req.body.name,
-    password: req.body.password,
-  };
-  console.log(data);
-  await collection.insertMany([data]);
-  res.render("home");
+// patient login
+app.post("/patient/login", async (req, res) => {
+  const { Email, Password } = req.body;
+  const patient = await Patient.findOne({ Email, Password });
+  if (patient) {
+    res.json({ message: "Login successful", patient });
+  } else {
+    res.status(400).json({ message: "Invalid credentials" });
+  }
 });
 
-app.get("/patient/signup", (req, res) => {
-  res.render("signup");
-});
-
+// patient signup
 app.post("/patient/signup", async (req, res) => {
-  const data = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  console.log(data);
-  await collection.insertMany([data]);
-  res.render("home");
+  try {
+    const patient = new Patient(req.body);
+    await patient.save();
+    res.status(201).json({ message: "Patient created successfully", patient });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.get("/patient/dashboard", (req, res) => {
-  res.render("patientDashboard");
+// patient dashboard
+app.get("/patient/:id", async (req, res) => {
+  try {
+    const patient = await Patient.findById(req.params.id);
+    if (!patient) return res.status(404).json({ message: "Patient not found" });
+    res.json(patient);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.get("/provider", (req, res) => {
-  res.render("login");
-});
-app.post("/provider/login", async (req, res) => {
-  const data = {
-    name: req.body.name,
-    password: req.body.password,
-  };
-  console.log(data);
-  await collection.insertMany([data]);
-  res.render("home");
-});
-
-app.get("/provider/signup", (req, res) => {
-  res.render("providerSignup");
-});
-app.post("/provider/signup", async (req, res) => {
-  const data = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  console.log(data);
-  await collection.insertMany([data]);
-  res.render("home");
+app.put("/patient/:id", async (req, res) => {
+  try {
+    const updatedPatient = await Patient.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedPatient);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.get("/provider/dashboard", (req, res) => {
-  res.render("providerDashboard");
+app.delete("/patient/:id", async (req, res) => {
+  try {
+    await Patient.findByIdAndDelete(req.params.id);
+    res.json({ message: "Patient deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.listen(PORT, () => {
+// nutritionist login
+app.post("/nutritionist/login", async (req, res) => {
+  const { Email, Password } = req.body;
+  const nutritionist = await Nutritionist.findOne({ Email, Password });
+  if (nutritionist) {
+    res.json({ message: "Login successful", nutritionist });
+  } else {
+    res.status(400).json({ message: "Invalid credentials" });
+  }
+});
+
+// nutritionist signup
+app.post("/nutritionist/signup", async (req, res) => {
+  try {
+    const nutritionist = new Nutritionist(req.body);
+    await nutritionist.save();
+
+    res
+      .status(201)
+      .json({ message: "Nutritionist created successfully", nutritionist });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// nutrtionist dashboard
+app.get("/nutritionist/dashboard", async (req, res) => {
+  try {
+    const nutritionist = await Nutritionist.findById(req.params.id).populate(
+      "Patients"
+    );
+    if (!nutritionist)
+      return res.status(404).json({ message: "Nutritionist not found" });
+    res.json(nutritionist);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.put("/nutritionist/:id", async (req, res) => {
+  try {
+    const updatedNutritionist = await Nutritionist.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedNutritionist);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.delete("/nutritionist/:id", async (req, res) => {
+  try {
+    await Nutritionist.findByIdAndDelete(req.params.id);
+    res.json({ message: "Nutritionist deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Endpoint to add patient to nutritionist’s patient list
+app.post("/nutritionist/:id/add-patient", async (req, res) => {
+  try {
+    const nutritionist = await Nutritionist.findById(req.params.id);
+    if (!nutritionist)
+      return res.status(404).json({ message: "Nutritionist not found" });
+
+    const patient = new Patient(req.body);
+    await patient.save();
+
+    nutritionist.Patients.push(patient);
+    await nutritionist.save();
+
+    res.json({ message: "Patient added to nutritionist's list", patient });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.listen(3000, () => {
   console.log("port connected !");
 });
 
@@ -104,6 +181,3 @@ const loginSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-collection = new mongoose.model("collection1", loginSchema);
-module.exports = collection;
