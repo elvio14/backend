@@ -1,35 +1,19 @@
 import mongoose from "mongoose";
 
-const NutritionistSchema = new mongoose.Schema({
-  Name: { type: String, required: true },
-  Email: { type: String, required: true, unique: true },
-  Password: { type: String, required: true },
-  Patients: [PatientSchema],
-});
-    
-const PatientSchema = new mongoose.Schema({
-  Name: { type: String, required: true },
-  Email: { type: String, required: true, unique: true },
-  Password: { type: String, required: true },
-  Weight: { type: Double, required: true },
-  Height: { type: Double, required: true },
-  Diet: { type: DietSchema, required: true },
-  Log: { type: LogSchema, required: true },
+const RatioSchema = new mongoose.Schema({
+  Carbohydrates: { type: Number, required: true },
+  Proteins: { type: Number, required: true },
+  Fats: { type: Number, required: true },
 });
 
 const DietSchema = new mongoose.Schema({
-  CaloriesPerDay: { type: Double, required: true },
+  CaloriesPerDay: { type: Number, required: true },
   Ratio: { type: RatioSchema, required: true },
 });
 
-const LogSchema = new mongoose.Schema({
-  Meals: [MealSchema],
-});
-
-const RatioSchema = new mongoose.Schema({
-  Carbohydrates: { type: Double, required: true },
-  Proteins: { type: Double, required: true },
-  Fats: { type: Double, required: true },
+const NutrientSchema = new mongoose.Schema({
+  Name: { type: String, required: true },
+  Amount: { type: Number, required: true },
 });
 
 const MealSchema = new mongoose.Schema({
@@ -39,12 +23,27 @@ const MealSchema = new mongoose.Schema({
   Nutrients: [NutrientSchema],
 });
 
-const NutrientSchema = new mongoose.Schema({
+const LogSchema = new mongoose.Schema({
+  Meals: [MealSchema],
+});
+const PatientSchema = new mongoose.Schema({
   Name: { type: String, required: true },
-  Amount: { type: Double, required: true },
+  Email: { type: String, required: true, unique: true },
+  Password: { type: String, required: true },
+  Weight: { type: Number, required: true },
+  Height: { type: Number, required: true },
+  Diet: { type: DietSchema, required: true },
+  Log: { type: LogSchema, required: true },
 });
 
-export default {
+const NutritionistSchema = new mongoose.Schema({
+  Name: { type: String, required: true },
+  Email: { type: String, required: true, unique: true },
+  Password: { type: String, required: true },
+  Patients: [PatientSchema],
+});
+
+export {
   NutritionistSchema,
   PatientSchema,
   DietSchema,
