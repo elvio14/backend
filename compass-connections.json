@@ -1,0 +1,27 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "111daf14-39a2-4000-b5e9-a73d2503bd17",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1731248049904"
+        }
+      },
+      "favorite": {
+        "name": "yash",
+        "color": "color1"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://Yash:abcd@cluster0.mqmqb.mongodb.net/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}
