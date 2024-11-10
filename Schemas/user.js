@@ -9,6 +9,8 @@ const RatioSchema = new mongoose.Schema({
 const DietSchema = new mongoose.Schema({
   CaloriesPerDay: { type: Number, required: true },
   Ratio: { type: RatioSchema, required: true },
+  TypePreferences: [String],
+  Allergies: [String],
 });
 
 const NutrientSchema = new mongoose.Schema({

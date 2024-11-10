@@ -1,0 +1,102 @@
+[
+    {
+      "Name": "Breakfast",
+      "Time": "08:00 AM",
+      "Calories": "400",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 15 },
+        { "Name": "Carbohydrate", "Amount": 50 },
+        { "Name": "Fat", "Amount": 10 }
+      ]
+    },
+    {
+      "Name": "Mid-Morning Snack",
+      "Time": "10:30 AM",
+      "Calories": "150",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 5 },
+        { "Name": "Carbohydrate", "Amount": 30 },
+        { "Name": "Fat", "Amount": 2 }
+      ]
+    },
+    {
+      "Name": "Lunch",
+      "Time": "12:30 PM",
+      "Calories": "600",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 20 },
+        { "Name": "Carbohydrate", "Amount": 75 },
+        { "Name": "Fat", "Amount": 15 }
+      ]
+    },
+    {
+      "Name": "Afternoon Snack",
+      "Time": "03:00 PM",
+      "Calories": "200",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 8 },
+        { "Name": "Carbohydrate", "Amount": 25 },
+        { "Name": "Fat", "Amount": 5 }
+      ]
+    },
+    {
+      "Name": "Dinner",
+      "Time": "06:30 PM",
+      "Calories": "700",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 25 },
+        { "Name": "Carbohydrate", "Amount": 80 },
+        { "Name": "Fat", "Amount": 20 }
+      ]
+    },
+    {
+      "Name": "Evening Snack",
+      "Time": "08:00 PM",
+      "Calories": "100",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 5 },
+        { "Name": "Carbohydrate", "Amount": 15 },
+        { "Name": "Fat", "Amount": 2 }
+      ]
+    },
+    {
+      "Name": "Late Night Snack",
+      "Time": "10:00 PM",
+      "Calories": "150",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 5 },
+        { "Name": "Carbohydrate", "Amount": 20 },
+        { "Name": "Fat", "Amount": 3 }
+      ]
+    },
+    {
+      "Name": "Breakfast",
+      "Time": "08:00 AM",
+      "Calories": "350",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 12 },
+        { "Name": "Carbohydrate", "Amount": 40 },
+        { "Name": "Fat", "Amount": 10 }
+      ]
+    },
+    {
+      "Name": "Lunch",
+      "Time": "12:30 PM",
+      "Calories": "550",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 18 },
+        { "Name": "Carbohydrate", "Amount": 70 },
+        { "Name": "Fat", "Amount": 12 }
+      ]
+    },
+    {
+      "Name": "Dinner",
+      "Time": "06:30 PM",
+      "Calories": "600",
+      "Nutrients": [
+        { "Name": "Protein", "Amount": 20 },
+        { "Name": "Carbohydrate", "Amount": 75 },
+        { "Name": "Fat", "Amount": 15 }
+      ]
+    }
+  ]
